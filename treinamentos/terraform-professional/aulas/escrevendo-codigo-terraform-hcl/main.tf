@@ -31,14 +31,13 @@ data "aws_ami" "ubuntu-east" {
   owners = ["099720109477"] # Canonical
 }
 
-resource "aws_instance" "ubuntu-west" {
-  ami           = data.aws_ami.ubuntu.id
-  instance_type = var.instance_type
-
-  tags = {
-    Name = "Ubuntu-west-2"
+removed {
+  from = aws_instance.ubuntu-west
+  lifecycle {
+    destroy = false
   }
 }
+
 
 resource "aws_instance" "ubuntu-east" {
   provider      = aws.east
