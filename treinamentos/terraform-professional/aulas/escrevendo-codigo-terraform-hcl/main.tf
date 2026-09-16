@@ -31,13 +31,29 @@ data "aws_ami" "ubuntu-east" {
   owners = ["099720109477"] # Canonical
 }
 
-removed {
-  from = aws_instance.ubuntu-west
-  lifecycle {
-    destroy = false
+data "aws_ami" "ubuntu-west" {
+  provider    = aws
+  most_recent = true
+
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
   }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+
+  owners = ["099720109477"] # Canonical
 }
 
+# removed {
+#   from = aws_instance.ubuntu-west
+#   lifecycle {
+#     destroy = false
+#   }
+# }
 
 resource "aws_instance" "ubuntu-east" {
   provider      = aws.east
@@ -47,4 +63,20 @@ resource "aws_instance" "ubuntu-east" {
   tags = {
     Name = "Ubuntu-east"
   }
+}
+
+resource "aws_instance" "ubuntu-west" {
+  provider      = aws
+  ami           = data.aws_ami.ubuntu-west.id
+  instance_type = var.instance_type
+
+  tags = {
+    Name = "Ubuntu-west"
+  }
+}
+
+import {
+  provider = aws
+  to       = aws_instance.ubuntu-west
+  id       = "i-080e819ec972aa6ac"
 }

@@ -14,6 +14,6 @@ provider "aws" {
 
 # Second provider using alias
 provider "aws" {
-    alias = "east"
-    region = "us-east-1"
+  alias  = "east"
+  region = "us-east-1"
 }
