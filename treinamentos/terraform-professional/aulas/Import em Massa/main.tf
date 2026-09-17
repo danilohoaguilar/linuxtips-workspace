@@ -48,13 +48,6 @@ data "aws_ami" "ubuntu-west" {
   owners = ["099720109477"] # Canonical
 }
 
-# removed {
-#   from = aws_instance.ubuntu-west
-#   lifecycle {
-#     destroy = false
-#   }
-# }
-
 resource "aws_instance" "ubuntu-east" {
   provider      = aws.east
   ami           = data.aws_ami.ubuntu-east.id
@@ -73,10 +66,4 @@ resource "aws_instance" "ubuntu-west" {
   tags = {
     Name = "Ubuntu-west"
   }
-}
-
-import {
-  provider = aws
-  to       = aws_instance.ubuntu-west
-  id       = "i-080e819ec972aa6ac"
 }
