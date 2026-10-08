@@ -1,0 +1,14 @@
+# Using lates Ubuntu Image
+FROM ubuntu
+
+# Update the container and install required packages
+RUN apt update && apt install nodejs npm -y
+
+# COPY the files to the image
+COPY . .
+
+# Install dependencies
+RUN npm install
+
+# Run the api
+CMD ["npm", "run", "dev"]
