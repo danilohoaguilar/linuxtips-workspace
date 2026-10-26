@@ -3,8 +3,7 @@ module "terraform-linuxtips-module" {
   version = "1.1.0"
   # insert required variables here
   name = "aula-terraform-registry-publish"
-  criar_db = true
-  instance_type = "t2.micro"
+  env = "dev"
 }
 
 module "s3-bucket" {
