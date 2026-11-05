@@ -1,0 +1,8 @@
+- name: Nginx
+  hosts: all
+  tasks:
+  - name: Instalar a ultima versao do Nignx
+    ansible.builtin.apt:
+      name: nginx
+      state: latest
+      update_cache: yes
