@@ -1,0 +1,6 @@
+- name: Nginx
+  hosts: all
+  roles:
+    - role: nginxinc.nginx
+      vars:
+        nginx_debug_output: true
